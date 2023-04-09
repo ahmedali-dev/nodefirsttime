@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-
+const fs = require('fs');
 const app = express();
 
 app.use(cors());
@@ -11,12 +11,9 @@ app.use(function (req, res, next) {
    next();
 });
 
-app.get("/home", (req, res) => {
-   const data = JSON.stringify({
-      name: "ahmedali",
-      email: "ahmedali@gmail.com",
-      password: "ahmedali",
-   });
+app.get("/home", async (req, res) => {
+   const dataread = fs.readFileSync("index.json",'utf8');
+   const data = JSON.stringify(dataread);
    res.send(data);
 });
 
